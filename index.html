@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Midas Luck - Free Spins</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      text-align: center;
+    }
+    .header {
+      background: black;
+      padding: 10px;
+    }
+    .header img {
+      height: 40px;
+    }
+    .content {
+      padding: 20px;
+    }
+    h1, p {
+      margin: 10px 0;
+    }
+    h1 {
+      color: black;
+      font-size: 24px;
+    }
+    p {
+      color: black;
+      font-size: 18px;
+    }
+    .highlight {
+      color: red;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    .jackpot {
+      font-size: 22px;
+      color: green;
+      font-weight: bold;
+    }
+    .countdown {
+      color: red;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    .free-spins {
+      background: red;
+      color: white;
+      padding: 10px;
+      margin: 20px 0;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    .slot-machine {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .reel {
+      background: white;
+      border: 3px solid black;
+      width: 80px;
+      height: 150px;
+      margin: 0 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      border-radius: 5px;
+    }
+    .reel img {
+      width: 60px;
+      height: 60px;
+      margin: 5px 0;
+    }
+    .spin-button, .continue-button {
+      background: gray;
+      color: white;
+      font-size: 24px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    .spin-button:hover, .continue-button:hover {
+      background: darkgray;
+    }
+    .footer {
+      padding: 20px;
+      font-size: 14px;
+      color: black;
+    }
+    #winSection {
+      display: none;
+    }
+    .win-message {
+      font-size: 28px;
+      font-weight: bold;
+      color: black;
+      margin: 20px 0;
+    }
+    .bonus-amount {
+      font-size: 32px;
+      color: green;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://i.ibb.co/jZGtwWnF/midasluck-logo.png" alt="Midas Luck">
+</div>
+
+<div class="content" id="mainContent">
+  <h1>Just for today!</h1>
+  <p>Get <span class="highlight">3 FREE SPINS</span></p>
+  <p>Current Jackpot:</p>
+  <p class="jackpot" id="jackpot">$607,896,121.79</p>
+  <p class="countdown" id="timer">Spin before time runs out! 5:00</p>
+
+  <div class="free-spins" id="spinCount">
+    You have 3 Free Spin(s)!
+  </div>
+
+  <div class="slot-machine">
+    <div class="reel" id="reel1">
+      <img src="https://i.ibb.co/4ZWhq6jB/1745768161098.png" alt="Symbol">
+    </div>
+    <div class="reel" id="reel2">
+      <img src="https://i.ibb.co/VW1dYv7F/1745768061298.png" alt="Symbol">
+    </div>
+    <div class="reel" id="reel3">
+      <img src="https://i.ibb.co/20H1bPFV/1745767061034.png" alt="Symbol">
+    </div>
+  </div>
+
+  <button class="spin-button" id="spinButton">SPIN</button>
+  
+  <div class="testimonial">
+    "The game works perfectly on my iPhone."
+    <div class="testimonial-author">- Rodrigo Garcia</div>
+  </div>
+</div>
+
+<div class="content" id="winSection">
+  <div class="win-message">CONGRATULATIONS!</div>
+  <p>You have earned a</p>
+  <div class="bonus-amount">$1000 BONUS</div>
+  <p>Press "Continue" to claim your bonus!</p>
+  <button class="continue-button" id="continueButton">CONTINUE</button>
+</div>
+
+<div class="footer">
+  <p>Gambling can be addictive. Play responsibly.</p>
+  <p>The Casino only accepts customers over 18 years of age.</p>
+  <p>© Casino 2025.</p>
+</div>
+
+<audio id="spinSound" src="https://www.caliente.mx/ofertas/assets/images/jackpot-spin.mp3"></audio>
+<audio id="winSound" src="https://www.caliente.mx/ofertas/assets/images/jackpot-win.mp3"></audio>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Game state
+    const gameState = {
+      spinsLeft: 3,
+      jackpotAmount: 607896121.79,
+      timer: 300, // 5 minutes in seconds
+      isSpinning: false,
+      winningImageIndex: 2 // Index of the winning image in the array
+    };
+
+    // DOM elements
+    const elements = {
+      jackpot: document.getElementById('jackpot'),
+      timer: document.getElementById('timer'),
+      spinCount: document.getElementById('spinCount'),
+      spinButton: document.getElementById('spinButton'),
+      mainContent: document.getElementById('mainContent'),
+      winSection: document.getElementById('winSection'),
+      continueButton: document.getElementById('continueButton'),
+      reel1: document.getElementById('reel1'),
+      reel2: document.getElementById('reel2'),
+      reel3: document.getElementById('reel3'),
+      spinSound: document.getElementById('spinSound'),
+      winSound: document.getElementById('winSound')
+    };
+
+    // Game symbols
+    const symbols = [
+      "https://i.ibb.co/4ZWhq6jB/1745768161098.png",
+      "https://i.ibb.co/VW1dYv7F/1745768061298.png",
+      "https://i.ibb.co/20H1bPFV/1745767061034.png", // Winning symbol
+      "https://i.ibb.co/MDqgj7wM/1745767927064.png",
+      "https://i.ibb.co/BHNnqjBf/1745767900830.png",
+      "https://i.ibb.co/FkZkqvTx/1745767584581.png",
+      "https://i.ibb.co/qYPmZ9Bg/1745767152133.png",
+      "https://i.ibb.co/nMprBV7H/1745767093940.png"
+    ];
+
+    // Update jackpot display
+    const updateJackpot = () => {
+      gameState.jackpotAmount += Math.random() * 10;
+      elements.jackpot.textContent = '$' + gameState.jackpotAmount.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    };
+
+    // Update countdown timer
+    const updateTimer = () => {
+      if (gameState.timer > 0) {
+        gameState.timer--;
+        const minutes = Math.floor(gameState.timer / 60);
+        const seconds = gameState.timer % 60;
+        elements.timer.textContent = Spin before time runs out! ${minutes}:${seconds < 10 ? '0' : ''}${seconds};
+      }
+    };
+
+    // Get random symbol
+    const getRandomSymbol = () => {
+      return symbols[Math.floor(Math.random() * symbols.length)];
+    };
+
+    // Spin animation
+    const spinReels = () => {
+      let spinCount = 0;
+      const totalSpins = 20;
+      const spinInterval = 100;
+      
+      const spinIntervalId = setInterval(() => {
+        elements.reel1.innerHTML = <img src="${getRandomSymbol()}" alt="Symbol">;
+        elements.reel2.innerHTML = <img src="${getRandomSymbol()}" alt="Symbol">;
+        elements.reel3.innerHTML = <img src="${getRandomSymbol()}" alt="Symbol">;
+        
+        spinCount++;
+        if (spinCount >= totalSpins) {
+          clearInterval(spinIntervalId);
+          finishSpin();
+        }
+      }, spinInterval);
+    };
+
+    // Finish spin and check for win
+    const finishSpin = () => {
+      gameState.spinsLeft--;
+      elements.spinCount.textContent = You have ${gameState.spinsLeft} Free Spin(s)!;
+      
+      if (gameState.spinsLeft === 0) {
+        // Show winning combination on last spin
+        const winningSymbol = symbols[gameState.winningImageIndex];
+        elements.reel1.innerHTML = <img src="${winningSymbol}" alt="Win">;
+        elements.reel2.innerHTML = <img src="${winningSymbol}" alt="Win">;
+        elements.reel3.innerHTML = <img src="${winningSymbol}" alt="Win">;
+        
+        elements.winSound.play();
+        
+        setTimeout(() => {
+          elements.mainContent.style.display = "none";
+          elements.winSection.style.display = "block";
+        }, 1500);
+      } else {
+        elements.spinButton.textContent = "TRY AGAIN!";
+        elements.spinButton.disabled = false;
+        gameState.isSpinning = false;
+      }
+    };
+
+    // Handle spin button click
+    elements.spinButton.addEventListener('click', () => {
+      if (gameState.spinsLeft > 0 && !gameState.isSpinning) {
+        gameState.isSpinning = true;
+        elements.spinButton.disabled = true;
+        elements.spinButton.textContent = "SPINNING...";
+        
+        elements.spinSound.play();
+        spinReels();
+      }
+    });
+
+    // Handle continue button click
+    elements.continueButton.addEventListener('click', () => {
+      window.location.href = 'https://disortonimmand.com/click';
+    });
+
+    // Initialize game
+    const initGame = () => {
+      // Start jackpot animation
+      setInterval(updateJackpot, 100);
+      
+      // Start countdown timer
+      setInterval(updateTimer, 1000);
+    };
+
+    initGame();
+  });
+</script>
+</body>
+</html>
